@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import type { Node } from 'react';
 //import android.os.Bundle;
 import {
   SafeAreaView,
@@ -27,8 +27,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -36,6 +36,8 @@ import Home from './Components/HomeComponent';
 import Photo from './Components/PhotoComponent';
 import Profile from './Components/ProfileComponent';
 import ImgCategory from './Components/ImgCategoryComponent';
+import ImgView from './Components/ImgViewComponent';
+import { ConfigProvider } from './comm/ConfigContext';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -104,11 +106,11 @@ const Stack = createStackNavigator();
 //   );
 // };
 
-function PhotoDetail(){
-  return(
-    <Stack.Navigator initialRouteName='ImgCategory' screenOptions={{headerShown:false}}>
+function PhotoDetail() {
+  return (
+    <Stack.Navigator initialRouteName='ImgCategory' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='ImgCategory' component={ImgCategory}></Stack.Screen>
-      <Stack.Screen name='Photo' component={Photo}></Stack.Screen>
+      <Stack.Screen name='ImgView' component={ImgView}></Stack.Screen>
       <Stack.Screen name='Profile' component={Profile}></Stack.Screen>
     </Stack.Navigator>
   )
@@ -116,25 +118,27 @@ function PhotoDetail(){
 
 function App() {
   return (
-    <NavigationContainer>
-    <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen
-        name="Home"
-        component={Home}
-        options={{drawerLabel: 'Home'}}
-      />
-      <Drawer.Screen
-        name="PhotoDetail"
-        component={PhotoDetail}
-        options={{drawerLabel: 'PhotoDetail'}}
-      />
-      <Drawer.Screen
-        name="Profile"
-        component={Profile}
-        options={{drawerLabel: 'Profile'}}
-      />
-    </Drawer.Navigator>
-    </NavigationContainer>
+    <ConfigProvider>
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen
+            name="Home"
+            component={Home}
+            options={{ drawerLabel: 'Home' }}
+          />
+          <Drawer.Screen
+            name="PhotoDetail"
+            component={PhotoDetail}
+            options={{ drawerLabel: 'PhotoDetail' }}
+          />
+          <Drawer.Screen
+            name="Profile"
+            component={Profile}
+            options={{ drawerLabel: 'Profile' }}
+          />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </ConfigProvider>
   );
 }
 

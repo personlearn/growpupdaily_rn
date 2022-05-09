@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import type { Node } from 'react';
 import {
     SafeAreaView,
@@ -20,58 +20,109 @@ import {
     LearnMoreLinks,
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { ConfigContext } from '../comm/ConfigContext'
+import Loading from '../comm/LoadingComponents'
 
 function PhotoDir(props) {
-
     return <TouchableHighlight onPress={() => props.onClick(props.tagid)}>
         <View>
-            <Image source={require('../asset/dir.png')}></Image>
-            <Text>{props.tagname}</Text>
+            <Image source={require('../asset/dir.png')} style={styles.Img}></Image>
+            <Text style={styles.Txt}>{props.tagname}</Text>
         </View>
     </TouchableHighlight>
 }
 
-function ImgCategory() {
+function ImgCategory({ navigation }) {
     const [tags, setTags] = useState([]);
-    useEffect(()=>{
-        async function fetchdata(){
-        await fetch('http://192.168.31.248:50011/photo/getTagsByUserId?userid=44275978c89511ec89b5685d43b14891',
-            {
-                method: "GET",
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8'
-                },
-                cache: 'default'
-            }).then(res => res.json())
-            .then(res => {
-                setTags(res.data ? res.data.tags : [])
-                console.log(res);
-                //Alert.alert(res)
-            });
+    const [config, setConfig] = useContext(ConfigContext);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadSchedul, setLoadSchedul] = useState([]);
+    const loadhis = useRef([]);
+    useEffect(() => {
+        loadhis.current=[...loadhis.current, config.Url + '/photo/getTagsByUserId?userid=' + config.UserId + " starting"];
+        setLoadSchedul(loadhis.current);
+        function fetchdata() {
+            loadhis.current=[...loadhis.current, "fetchdata"];
+            setLoadSchedul(loadhis.current)
+            return fetch(config.Url + '/photo/getTagsByUserId?userid=' + config.UserId,
+                {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    cache: 'default'
+                }).then(res => res.json())
+                .then(res => {
+                    setTags(res.data ? res.data.tags : [])
+                    setIsLoading(false);
+                    console.log(res);
+                    loadhis.current=[...loadhis.current, "res "+JSON.stringify(res)];
+                    setLoadSchedul(loadhis.current)
+                    console.log(loadhis.current)
+                })
+                .catch(err =>{loadhis.current=[...loadhis.current, "res catch "+JSON.stringify(err.message),JSON.stringify(err.stack)]; setLoadSchedul(loadhis.current);}
+                );
         }
-        fetchdata();
-    },[]);
+        try {
+            fetchdata();
+        }
+        catch (e) {
+            loadhis.current=[...loadhis.current, "catch: " + JSON.stringify(e)];
+            setLoadSchedul(loadhis.current)
+        }
+    }, []);
 
     function OpenDir(tagid) {
-        //const{history} =this.props
-        //console.log(history);
-        //history.push("/menu1/"+tagid)
-        Alert.alert(tagid)
+        console.log(navigation);
+        navigation.navigate('ImgView', { tagid: tagid })
     }
 
-    return (
-        <SafeAreaView>
-            <ScrollView>
+    // return (<View>
+    //     {
+    //         loadSchedul.map((item, idx) => {
+    //             return <Text key={idx}>{item}</Text>
+    //         })
+    //     }
+
+    // </View>);
+    return (isLoading ? (<Loading />)
+        // (<View>
+        //      {
+        //             loadSchedul.map((item, idx) => {
+        //                 return <Text key={idx}>{item}</Text>
+        //             })
+        //         }
+
+        // </View>) 
+        : 
+        (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.Container}>
                 <PhotoDir tagid="_all" tagname="全部" onClick={tagid => OpenDir("_all")}></PhotoDir>
                 {
                     tags.map((item, idx) => {
                         return <PhotoDir key={idx} tagid={item} tagname={item} onClick={tagid => OpenDir(item)}></PhotoDir>
                     })
                 }
-            </ScrollView>
-        </SafeAreaView>
-    );
+            </View>
+        </SafeAreaView>));
 }
+
+const styles = StyleSheet.create({
+    Container: {
+        marginTop: 8,
+        backgroundColor: "aliceblue",
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
+    Img: {
+        width: 50,
+        height: 50,
+    },
+    Txt: {
+        width: 50,
+    }
+});
 
 export default ImgCategory;
