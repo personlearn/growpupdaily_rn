@@ -37,6 +37,8 @@ import Photo from './Components/PhotoComponent';
 import Profile from './Components/ProfileComponent';
 import ImgCategory from './Components/ImgCategoryComponent';
 import ImgView from './Components/ImgViewComponent';
+import Download from './Components/DownloadComponent';
+import Browser from './Components/BrowserComponent';
 import { ConfigProvider } from './comm/ConfigContext';
 
 const Drawer = createDrawerNavigator();
@@ -135,6 +137,16 @@ function App() {
             name="Profile"
             component={Profile}
             options={{ drawerLabel: 'Profile' }}
+          />
+           <Drawer.Screen
+            name="Download"
+            component={Download}
+            options={{ drawerLabel: 'Download' }}
+          />
+           <Drawer.Screen
+            name="Browser"
+            component={Browser}
+            options={{ drawerLabel: 'Browser' }}
           />
         </Drawer.Navigator>
       </NavigationContainer>
