@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {View, Text, TextInput, Alert} from 'react-native';
+import {ConfigContext} from '../comm/ConfigContext';
 
 function Download() {
   const [url, setUrl] = useState();
-
+  const [config, setConfig] = useContext(ConfigContext);
   function commit() {
     fetch(config.Url + '/spider/addurl?url' + url, {
       method: 'GET',
@@ -16,6 +17,7 @@ function Download() {
       .then(res => res.json())
       .then(res => {
         console.log(res);
+        Alert.alert(url + '成功');
       });
   }
 
