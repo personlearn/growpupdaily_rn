@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, TextInput, Alert} from 'react-native';
+import {View, Text, TextInput, Alert,Button} from 'react-native';
 import {ConfigContext} from '../comm/ConfigContext';
 
 function Download() {
@@ -29,7 +29,7 @@ function Download() {
         onChangeText={text => setUrl(text)}
         value={url}
       />
-      <Button onClick={() => commit()}>提交</Button>
+      <Button title='test' onClick={() => commit()}>提交</Button>
     </View>
   );
 }

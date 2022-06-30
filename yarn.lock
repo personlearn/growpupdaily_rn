@@ -2734,6 +2734,11 @@
   "resolved" "https://registry.npmmirror.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   "version" "4.0.0"
 
+"escape-string-regexp@2.0.0":
+  "integrity" "sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w=="
+  "resolved" "https://registry.npmmirror.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
+  "version" "2.0.0"
+
 "eslint-config-prettier@^6.10.1":
   "integrity" "sha512-a1+kOYLR8wMGustcgAjdydMsQ2A/2ipRPwRKUmfYaSxc9ZPcrku080Ctl6zrZzZNs/U82MjSv+qKREkoq3bJaw=="
   "resolved" "https://registry.npmmirror.com/eslint-config-prettier/-/eslint-config-prettier-6.15.0.tgz"
@@ -3527,7 +3532,7 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
-"invariant@*", "invariant@^2.2.4":
+"invariant@*", "invariant@^2.2.4", "invariant@2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.npmmirror.com/invariant/-/invariant-2.2.4.tgz"
   "version" "2.2.4"
@@ -3558,7 +3563,7 @@
   "resolved" "https://registry.npmmirror.com/is-arrayish/-/is-arrayish-0.2.1.tgz"
   "version" "0.2.1"
 
-"is-arrayish@^0.3.1":
+"is-arrayish@^0.3.1", "is-arrayish@^0.3.2":
   "integrity" "sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ=="
   "resolved" "https://registry.npmmirror.com/is-arrayish/-/is-arrayish-0.3.2.tgz"
   "version" "0.3.2"
@@ -5626,6 +5631,14 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
+
+"react-native-webview@^11.22.4":
+  "integrity" "sha512-nhDibIY2wzjA1Ydn0Kiydx5e20XJ3QWTi2wgIq4iq76pI186fqtcgcsaT69XUGLM0C2iQSn33d/joDgW20pFWg=="
+  "resolved" "https://registry.npmmirror.com/react-native-webview/-/react-native-webview-11.22.4.tgz"
+  "version" "11.22.4"
+  dependencies:
+    "escape-string-regexp" "2.0.0"
+    "invariant" "2.2.4"
 
 "react-native@*", "react-native@0.68.1":
   "integrity" "sha512-5gfvslo5NO2Ece2k/q41eVOK3ca4u1QAOf+qM+auvOiUA4/QR5Yr0WfSGbRpUr2GaFgv7qP11F4+elCravg7uQ=="
