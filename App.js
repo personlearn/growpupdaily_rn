@@ -122,7 +122,7 @@ function App() {
   return (
     <ConfigProvider>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator initialRouteName="Home" backBehavior='none' screenOptions={{ headerShown: false }}>
           <Drawer.Screen
             name="Home"
             component={Home}
