@@ -5,8 +5,9 @@ import {ConfigContext} from '../comm/ConfigContext';
 function Download() {
   const [url, setUrl] = useState();
   const [config, setConfig] = useContext(ConfigContext);
+  
   function commit() {
-    fetch(config.Url + '/spider/addurl?url' + url, {
+    fetch(config.Url + '/spider/addurl?url=' + url, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -18,11 +19,13 @@ function Download() {
       .then(res => {
         console.log(res);
         Alert.alert(url + '成功');
-      });
+      })
+      .catch(err=>Alert.alert(JSON.stringify(e)));
   }
 
   return (
     <View>
+      <View>
       <Text>url:</Text>
       <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -30,6 +33,13 @@ function Download() {
         value={url}
       />
       <Button title='test' onClick={() => commit()}>提交</Button>
+      </View>
+      <View>
+        <Text>正在访问url:{config.Url + '/spider/addurl?url=' + url}</Text>
+      </View>
+      <View>
+
+      </View>
     </View>
   );
 }
