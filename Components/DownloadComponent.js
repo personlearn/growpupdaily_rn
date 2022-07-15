@@ -32,7 +32,7 @@ function Download() {
         onChangeText={text => setUrl(text)}
         value={url}
       />
-      <Button title='test' onClick={() => commit()}>提交</Button>
+      <Button title='test' onPress={() => commit()}>提交</Button>
       </View>
       <View>
         <Text>正在访问url:{config.Url + '/spider/addurl?url=' + url}</Text>

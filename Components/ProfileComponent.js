@@ -23,6 +23,24 @@ function Profile() {
     setNums(tmparr);
   }
 
+  function Ball(props) {
+    return (
+      <View
+        className="redball"
+        style={{
+          width: '50px',
+          height: '50px',
+          borderRadius: '100%',
+          backgroundColor: props.color,
+          textAlign: 'center',
+          lineHeight: '50px',
+          display: 'inline-block',
+        }}>
+        <Text>{props.val}</Text>
+      </View>
+    );
+  }
+
   return (
     <View>
       <View>
@@ -34,25 +52,7 @@ function Profile() {
         <Ball color="#FA8072" val={nums[5]} />
         <Ball color="#00BFFF" val={nums[6]} />
       </View>
-      <Button onClick={() => gengeBall()}>生成</Button>
-    </View>
-  );
-}
-
-function Ball(props) {
-  return (
-    <View
-      className="redball"
-      style={{
-        width: '50px',
-        height: '50px',
-        borderRadius: '100%',
-        backgroundColor: props.color,
-        textAlign: 'center',
-        lineHeight: '50px',
-        display: 'inline-block',
-      }}>
-      <Text>{props.val}</Text>
+      <Button onPress={() => gengeBall()}>生成</Button>
     </View>
   );
 }
